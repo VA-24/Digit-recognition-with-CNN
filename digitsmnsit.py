@@ -3,6 +3,7 @@ import keras
 from keras.datasets import mnist
 import matplotlib.pyplot as plt
 import pickle
+import numpy as np
 
 
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
@@ -27,7 +28,17 @@ test_loss, test_acc = model.evaluate(X_test, y_test)
 
 print("Test loss is " + str(test_loss))
 print("Test acc is " + str(test_acc * 100))
-prediction = model.predict(X_test)
+prediction = model.predict(X_test[:5])
+
+num = 0
+
+for i in range (len(prediction)):
+    guess = np.argmax(prediction[i])
+    actual = y_test[i]
+    print("The computer guessed that the number was a ", guess)
+    print("The number was actually a ", actual)
+    plt.imshow(X_test[i], cmap=plt.cm.binary)
+    plt.show()
 
 model.save("ml.model")
 
