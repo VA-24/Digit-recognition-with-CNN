@@ -21,7 +21,7 @@ model = keras.Sequential([
 
 model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
 
-model.fit(X_train, y_train, epochs=5)
+model.fit(X_train, y_train, epochs=3)
 
 test_loss, test_acc = model.evaluate(X_test, y_test)
 
@@ -29,6 +29,4 @@ print("Test loss is " + str(test_loss))
 print("Test acc is " + str(test_acc * 100))
 prediction = model.predict(X_test)
 
-#saves the model so you don't have to waste 20 seconds of your precious time
-with open("mnistdataset.pickle", "wb") as f:
-    pickle.dump(model, f)
+model.save("ml.model")
